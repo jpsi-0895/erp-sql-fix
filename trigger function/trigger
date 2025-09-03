@@ -1,0 +1,25 @@
+CREATE TABLE employee_audit(
+	id SERIAL PRIMARY KEY,
+	emp_name VARCHAR(20),
+	old_salary NUMERIC(10,2),
+	new_salary NUMERIC(10,2),
+	updated_at TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO employee_audit (emp_name, old_salary, new_salary) VALUES
+('Rahul Sharma', 35000.00, 38000.00),
+('Anita Verma', 42000.00, 45000.00),
+('Vikram Singh', 28000.00, 30000.00),
+('Priya Nair', 50000.00, 52000.00),
+('Amit Khanna', 60000.00, 63000.00),
+('Sneha Patel', 32000.00, 34000.00),
+('Rohit Mehta', 45000.00, 47000.00),
+('Kavita Joshi', 38000.00, 40000.00),
+('Arjun Malhotra', 70000.00, 72000.00),
+('Neha Desai', 55000.00, 57000.00);
+
+CREATE OR REPLACE FUNCTION new_salary_update()
+RETURN TRIGGER AS $$
+BEGIN
+	
+END
