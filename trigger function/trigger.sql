@@ -19,7 +19,15 @@ INSERT INTO employee_audit (emp_name, old_salary, new_salary) VALUES
 ('Neha Desai', 55000.00, 57000.00);
 
 CREATE OR REPLACE FUNCTION new_salary_update()
-RETURN TRIGGER AS $$
+RETURNS trigger AS $$
 BEGIN
-	
-END
+	INSERT INTO employee_audit(emp_name, old_salary, new_salary)
+	VALUES (OLD.name, OLD.salary, NEW.salary);
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_audit
+AFTER UPDATE OF salary ON employee_audit
+FOR EACH ROW
+EXECUTE FUNCTION new_salary_update();
